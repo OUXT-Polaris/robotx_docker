@@ -39,7 +39,7 @@ RUN mkdir -p /root/catkin_ws/src
 WORKDIR /root/catkin_ws/src
 RUN git clone https://github.com/OUXT-Polaris/robotx_packages.git
 WORKDIR /root/catkin_ws/
-RUN rosdep install -i -r -y --from-paths src --rosdistro kinetic
+RUN apt-get update && rosdep install -i -r -y --from-paths src --rosdistro kinetic
 RUN catkin_make
 
 CMD ["bash"]

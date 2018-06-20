@@ -2,11 +2,11 @@
 
 # install docker-ce
 sudo apt-get update
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+#sudo apt-get install \
+#    apt-transport-https \
+#    ca-certificates \
+#    curl \
+#    software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 sudo add-apt-repository \
@@ -14,9 +14,9 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 sudo apt-get update
-sudo apt-get install docker-ce
-sudo groupadd docker
-sudo usermod -aG docker $USER
+sudo apt-get install docker-ce -y
+#sudo groupadd docker　：already exists
+sudo usermod -aG docker ubuntu
 
 # install nvidia-docker v2
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
@@ -25,9 +25,10 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
   sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 sudo apt-get update
-sudo apt-get install nvidia-docker2
+sudo apt-get install nvidia-docker2 -y
 sudo pkill -SIGHUP dockerd
+systemctl start docker
 
 # build&run docker image
-docker build -t robotx_image .
+docker build -t ouxt/robotx_image .
 docker run --runtime=nvidia --rm robotx_image nvidia-smi

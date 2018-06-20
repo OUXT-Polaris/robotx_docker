@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -q -y \
     dirmngr \
     gnupg2 \
     lsb-release \
+    apt-utils \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 421C365BD9FF1F717815A3895523BAEEB01FA116
@@ -40,6 +41,8 @@ WORKDIR /root/catkin_ws/src
 RUN git clone https://github.com/OUXT-Polaris/robotx_packages.git
 WORKDIR /root/catkin_ws/
 RUN apt-get update && rosdep install -i -r -y --from-paths src --rosdistro kinetic
-RUN catkin_make
+RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash && \
+    rm -rf devel build && \
+    catkin_make_isolated"
 
 CMD ["bash"]

@@ -6,7 +6,7 @@ ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
     ROS_DISTRO=kinetic \
     DEBIAN_FRONTEND=noninteractive \
-    USERNAME=ubuntu
+    USER_NAME=ubuntu
 
 RUN apt-get update && apt-get install -q -y \
     apt-utils \
@@ -35,20 +35,21 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rosdep init
-RUN useradd -m $USERNAME
+RUN useradd -m $USER_NAME && \
+    echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/${USER_NAME}
 
-USER $USERNAME
+USER $USER_NAME
 RUN rosdep update
 
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-RUN mkdir -p /home/$USERNAME/catkin_ws/src
-WORKDIR /home/$USERNAME/catkin_ws/src
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USER_NAME/.bashrc
+RUN mkdir -p /home/$USER_NAME/catkin_ws/src
+WORKDIR /home/$USER_NAME/catkin_ws/src
 RUN git clone https://github.com/OUXT-Polaris/robotx_packages.git
-WORKDIR /home/$USERNAME/catkin_ws/
+WORKDIR /home/$USER_NAME/catkin_ws/
 
 RUN rosdep install -i -r -y --from-paths src --rosdistro kinetic
 
-USER $USERNAME
+USER $USER_NAME
 RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash && \
     rm -rf devel build && \
     catkin_make_isolated"

@@ -65,6 +65,7 @@ RUN wget https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_am
     dpkg -i turbovnc_2.1.2_amd64.deb && \
     rm turbovnc_2.1.2_amd64.deb
 
+RUN echo -e "1\n\n\n\nx\n" | /opt/VirtualGL/bin/vglserver_config
 RUN usermod -aG vglusers ubuntu
 
 USER $USER_NAME

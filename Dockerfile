@@ -47,7 +47,8 @@ WORKDIR /home/$USER_NAME/catkin_ws/src
 RUN git clone https://github.com/OUXT-Polaris/robotx_packages.git
 WORKDIR /home/$USER_NAME/catkin_ws/
 
-RUN rosdep install -i -r -y --from-paths src --rosdistro kinetic
+RUN sudo apt-get update && \
+    rosdep install -i -r -y --from-paths src --rosdistro kinetic
 
 USER $USER_NAME
 RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash && \

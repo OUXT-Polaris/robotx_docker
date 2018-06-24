@@ -35,6 +35,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rosdep init
+RUN useradd -m $USERNAME
 
 USER $USERNAME
 RUN rosdep update
@@ -55,12 +56,12 @@ RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash && \
 RUN source devel_isolated/setup.bash
 
 # install TurboVNC
-RUN wget https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl32_2.5.2_amd64.deb && \
-    dpkg -i virtualgl32_2.5.2_amd64.deb && \
-    rm virtualgl32_2.5.2_amd64.deb
-RUN wget https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_amd64.deb && \
-    dpkg -i turbovnc_2.1.2_amd64.deb && \
-    rm dpkg -i turbovnc_2.1.2_amd64.deb
+#RUN wget https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl32_2.5.2_amd64.deb && \
+#    dpkg -i virtualgl32_2.5.2_amd64.deb && \
+#    rm virtualgl32_2.5.2_amd64.deb
+#RUN wget https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_amd64.deb && \
+#    dpkg -i turbovnc_2.1.2_amd64.deb && \
+#    rm dpkg -i turbovnc_2.1.2_amd64.deb
 
 #RUN init 3
 #RUN vglserver_config

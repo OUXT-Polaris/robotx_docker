@@ -63,7 +63,7 @@ RUN wget https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl32_2.5.
     rm virtualgl32_2.5.2_amd64.deb
 RUN wget https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_amd64.deb && \
     dpkg -i turbovnc_2.1.2_amd64.deb && \
-    rm dpkg -i turbovnc_2.1.2_amd64.deb
+    rm turbovnc_2.1.2_amd64.deb
 
 USER $USER_NAME
 CMD ["bash"]

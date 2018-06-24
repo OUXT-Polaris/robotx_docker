@@ -48,23 +48,22 @@ RUN git clone https://github.com/OUXT-Polaris/robotx_packages.git
 WORKDIR /home/$USER_NAME/catkin_ws/
 
 RUN sudo apt-get update && \
+    export DEBIAN_FRONTEND=noninteractive && \
     rosdep install -i -r -y --from-paths src --rosdistro kinetic
 
-USER $USER_NAME
 RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash && \
     rm -rf devel build && \
     catkin_make_isolated"
-RUN source devel_isolated/setup.bash
+#RUN source devel_isolated/setup.bash
 
+USER root
 # install TurboVNC
-#RUN wget https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl32_2.5.2_amd64.deb && \
-#    dpkg -i virtualgl32_2.5.2_amd64.deb && \
-#    rm virtualgl32_2.5.2_amd64.deb
-#RUN wget https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_amd64.deb && \
-#    dpkg -i turbovnc_2.1.2_amd64.deb && \
-#    rm dpkg -i turbovnc_2.1.2_amd64.deb
+RUN wget https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl32_2.5.2_amd64.deb && \
+    dpkg -i virtualgl32_2.5.2_amd64.deb && \
+    rm virtualgl32_2.5.2_amd64.deb
+RUN wget https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_amd64.deb && \
+    dpkg -i turbovnc_2.1.2_amd64.deb && \
+    rm dpkg -i turbovnc_2.1.2_amd64.deb
 
-#RUN init 3
-#RUN vglserver_config
-
+USER $USER_NAME
 CMD ["bash"]

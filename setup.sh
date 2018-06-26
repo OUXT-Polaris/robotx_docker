@@ -31,3 +31,8 @@ git clone https://github.com/OUXT-Polaris/robotx_docker.git
 cd robotx_docker
 docker build -t ouxt/robotx_image .
 docker run --runtime=nvidia --rm ouxt/robotx_image nvidia-smi
+
+# for VN through SSH
+
+# on different terminal
+# ssh -i ~/.ssh/ouxt-dev.pem ubuntu@ec2-54-187-105-131.us-west-2.compute.amazonaws.com

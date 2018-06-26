@@ -53,7 +53,7 @@ RUN sudo apt-get update && \
 RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash && \
     rm -rf devel build && \
     catkin_make_isolated"
-#RUN source devel_isolated/setup.bash
+RUN echo "source /home/$USER_NAME/catkin_ws/devel_isolated/setup.bash" >> /home/$USER_NAME/.bashrc
 
 USER root
 # install TurboVNC
@@ -63,6 +63,7 @@ RUN curl -LO https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl_2.
 RUN curl -LO https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_amd64.deb && \
     dpkg -i turbovnc_2.1.2_amd64.deb && \
     rm turbovnc_2.1.2_amd64.deb
+RUN echo "export PATH=/opt/TurboVNC/bin/:/opt/VirtualGL/bin/:$PATH" >> /home/$USER_NAME/.bashrc
 
 #RUN echo -e "1\n\n\n\nx\n" | /opt/VirtualGL/bin/vglserver_config
 #RUN groupadd

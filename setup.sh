@@ -24,13 +24,13 @@ sudo apt-get install nvidia-docker2 -y
 
 sudo reboot
 #sudo pkill -SIGHUP dockerd
-systemctl start docker
+sudo systemctl start docker
 
 # build&run docker image
 git clone https://github.com/OUXT-Polaris/robotx_docker.git
 cd robotx_docker
-docker build -t ouxt/robotx_image .
-docker run --runtime=nvidia --rm ouxt/robotx_image nvidia-smi
+docker build -t ouxt/robotx .
+docker run --runtime=nvidia --rm ouxt/robotx nvidia-smi
 
 # for VN through SSH
 

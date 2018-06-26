@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -q -y \
     gnupg2 \
     lsb-release \
     lxde-core \
-    tightvncserver \
     wget \
     && rm -rf /var/lib/apt/lists/*
 

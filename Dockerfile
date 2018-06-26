@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -q -y \
     gnupg2 \
     lsb-release \
     lxde-core \
-    wget \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # install ros-kinetic
@@ -57,10 +57,10 @@ RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash && \
 
 USER root
 # install TurboVNC
-RUN wget https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl_2.5.2_amd64.deb && \
+RUN curl -LO https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl_2.5.2_amd64.deb && \
     dpkg -i virtualgl_2.5.2_amd64.deb && \
     rm virtualgl_2.5.2_amd64.deb
-RUN wget https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_amd64.deb && \
+RUN curl -LO https://sourceforge.net/projects/turbovnc/files/2.1.2/turbovnc_2.1.2_amd64.deb && \
     dpkg -i turbovnc_2.1.2_amd64.deb && \
     rm turbovnc_2.1.2_amd64.deb
 
